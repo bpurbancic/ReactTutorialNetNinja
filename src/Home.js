@@ -4,30 +4,33 @@ import BlogList from "./BlogList";
 
 const Home = () => {
     const [blogs, setBlogs] = useState(null);
-
-    const [name, setName] = useState('mario');
-
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     // useEffect takes a function as an argument which will run upon every render and re-render
     useEffect(() => {
-        setTimeout(() => {
-            fetch('http://localhost:8000/blogs')
-                .then(res => {
-                    return res.json();
-                })
-                .then(data => {
-                    setBlogs(data);
-                    setIsLoading(false);
-                });
-        }, 1000);
+        fetch('http://localhost:8000/blogs')
+            .then(res => {
+                if (!res.ok) {
+                    throw Error('Fetch failed.');
+                }
+                return res.json();
+            })
+            .then(data => {
+                setBlogs(data);
+                setIsLoading(false);
+                setError(null);
+            })
+            .catch(err => {
+                setError(err.message);
+                setIsLoading(false);
+            })
     }, []);
     // [] only runs on first render; ie, we only fetch the data once
 
     return (
         <div className="home">
-            {/* {!blogs && <p>loading</p>} */}
-            {/* I used above instead of the much longer isLoading way */}
+            {error && <p>{error}</p>}
             {isLoading && <p>Loading...</p>}
             {blogs && <BlogList blogs={blogs} title='All Blogs' />}
         </div >
