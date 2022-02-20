@@ -7,25 +7,29 @@ const Home = () => {
 
     const [name, setName] = useState('mario');
 
+    const [isLoading, setIsLoading] = useState(true);
+
     // useEffect takes a function as an argument which will run upon every render and re-render
     useEffect(() => {
-        fetch('http://localhost:8000/blogs')
-            .then(res => {
-                return res.json();
-            })
-            .then(data => {
-                setBlogs(data);
-            });
+        setTimeout(() => {
+            fetch('http://localhost:8000/blogs')
+                .then(res => {
+                    return res.json();
+                })
+                .then(data => {
+                    setBlogs(data);
+                    setIsLoading(false);
+                });
+        }, 1000);
     }, []);
     // [] only runs on first render; ie, we only fetch the data once
 
     return (
         <div className="home">
+            {/* {!blogs && <p>loading</p>} */}
+            {/* I used above instead of the much longer isLoading way */}
+            {isLoading && <p>Loading...</p>}
             {blogs && <BlogList blogs={blogs} title='All Blogs' />}
-            {/* if (blogs != null) {
-                <BlogList blogs={blogs} title='All Blogs' handleDelete={handleDelete} />
-            } */}
-            {/* Why doesn't above if stmt work as an alternative to the "blog &&" way? */}
         </div >
     );
 }
