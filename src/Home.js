@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
 
 
@@ -13,6 +13,13 @@ const Home = () => {
         const newBlogs = blogs.filter(blog => blog.id != id);
         setBlogs(newBlogs);
     }
+
+    // useEffect takes a function as an argument which will run upon every render and re-render
+    useEffect(() => {
+        console.log('Use effect ran');
+        console.log(blogs);
+
+    });
 
 
 
