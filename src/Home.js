@@ -15,6 +15,7 @@ const Home = () => {
         <div className="Home">
             <BlogList blogs={blogs} title='All Blogs' />
             {/* blogs above is a prop used to pass data to child component*/}
+            <BlogList blogs={blogs.filter(blog => blog.author === 'mario')} title="Mario's Blogs" />
         </div >
     );
 }
