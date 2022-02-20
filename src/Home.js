@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BlogList from "./BlogList";
 
 
 const Home = () => {
@@ -12,12 +13,8 @@ const Home = () => {
 
     return (
         <div className="Home">
-            {blogs.map((blog) => (
-                <div className="blog-preview" key={blog.id}>
-                    <h2>{blog.title}</h2>
-                    <p>Author: {blog.author}</p>
-                </div>
-            ))}
+            <BlogList blogs={blogs} title='All Blogs' />
+            {/* blogs above is a prop used to pass data to child component*/}
         </div >
     );
 }
