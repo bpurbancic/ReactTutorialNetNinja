@@ -56,7 +56,13 @@
 }
 
 .blog-preview p {
-  font-size: 20px;
+  font-size: 25px;
+  color: blue;
+  margin-bottom: 8px;
+}
+
+.home p {
+  font-size: 25px;
   color: blue;
   margin-bottom: 8px;
 }
